@@ -1,0 +1,77 @@
+Easy
+Topics
+premium lock icon
+Companies
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+Implement the MyStack class:
+
+void push(int x) Pushes element x to the top of the stack.
+int pop() Removes the element on the top of the stack and returns it.
+int top() Returns the element on the top of the stack.
+boolean empty() Returns true if the stack is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's 
+standard operations.
+ 
+
+Example 1:
+
+Input
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 2, 2, false]
+
+Explanation
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // return 2
+
+JAVA CODE:
+
+
+
+import java.util.*;
+
+class MyStack {
+    Queue<Integer> qu = new LinkedList<>();
+    Queue<Integer> quu = new LinkedList<>();
+
+    public MyStack() {
+    }
+    
+    // Push element onto stack
+    public void push(int x) {
+        // Move all elements from qu to quu
+        while(!qu.isEmpty()) {
+            quu.offer(qu.poll());
+        }
+        
+        // Push new element into qu
+        qu.offer(x);
+        
+        // Move everything back from quu to qu
+        while(!quu.isEmpty()) {
+            qu.offer(quu.poll());
+        }
+    }
+    
+    // Removes top element
+    public int pop() {
+        return qu.poll(); // front of qu is top of stack
+    }
+    
+    // Get top element
+    public int top() {
+        return qu.peek();
+    }
+    
+    // Return whether stack is empty
+    public boolean empty() {
+        return qu.isEmpty();
+    }
+}
